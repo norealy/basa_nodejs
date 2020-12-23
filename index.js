@@ -23,11 +23,27 @@ app.get('/file', (req, res) => {
 app.get('/json', (req, res) => {
    res.json({"message":"Hello Json "});
 });
-// app.get('/user', function(req, res, next) {
-  // req.time = new Date().toString();
-  // res.send(req.time);
-  // next();
-// });
+app.get('/user', function(req, res, next) {
+  req.time = new Date().toString();
+  res.send(req.time);
+  next();
+});
+
+app.patch('/user', function(req, res, next) {
+  req.user = req.body;
+  next();
+},function(req,res){
+  req.user.password="Password Update";
+  res.send(req.user);
+});
+app.put('/user', function(req, res, next) {
+  req.user = req.body;
+  next();
+},function(req,res){
+  req.user.password="Password put";
+  res.send(req.user);
+});
+
 app.delete('/user', (req, res,next) => {
   req.user = req.body;
   console.log(req.body.name)
@@ -41,9 +57,8 @@ app.get('/post/:post_id', (req, res)=>{
   res.send(post)
 });
 
-//http://localhost:8000/name?first=VAnn&last=Dat
-app.get('/name', (req, res) =>{
-  const { first: firstName, last: lastName } = req.query;
+app.post('/name', (req, res) =>{
+  const { first: firstName, last: lastName } = req.body;
   res.json({ "name": `${firstName} ${lastName}`})
 });
 

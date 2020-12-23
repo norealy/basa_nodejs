@@ -28,7 +28,7 @@ app.get('/json', (req, res) => {
   // res.send(req.time);
   // next();
 // });
-app.get('/user', (req, res,next) => {
+app.delete('/user', (req, res,next) => {
   req.user = req.body;
   console.log(req.body.name)
   next();
